@@ -4,9 +4,9 @@ export async function POST(request: Request) {
     try {
         const { email, plan, amount, note, crypto } = await request.json();
 
-        // INTEGRATED USER CREDENTIALS
-        const BOT_TOKEN = "6416350560:AAFvBZ6jJ7OHlBTRsbAPkuIF31-dFDW-ueM";
-        const CHAT_ID = "5711350424";
+        // Telegram credentials from environment variables
+        const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+        const CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 
         if (BOT_TOKEN && CHAT_ID) {
             let message = `🚀 *New NodePoint Alert!*\n\n📧 Email: ${email}\n📦 Plan: ${plan}\n💰 Amount: ${amount}\n🪙 Asset: ${crypto || "N/A"}`;

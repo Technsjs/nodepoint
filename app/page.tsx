@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import PricingScroll from "@/components/PricingScroll";
 
 type Package = {
   id: string;
@@ -107,11 +108,11 @@ type CryptoOption = {
 };
 
 const CRYPTO_OPTIONS: CryptoOption[] = [
-  { id: "eth", name: "Ethereum", symbol: "ETH", network: "ERC20", address: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e", icon: "🌐" },
-  { id: "btc", name: "Bitcoin", symbol: "BTC", network: "Bitcoin", address: "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh", icon: "₿" },
-  { id: "sol", name: "Solana", symbol: "SOL", network: "Solana", address: "H6AR6n5n4Z5Pq5u5u5u5u5u5u5u5u5u5u5u5u5u5", icon: "☀️" },
-  { id: "usdt", name: "Tether", symbol: "USDT", network: "ERC20", address: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e", icon: "💵" },
-  { id: "usdt-trc", name: "Tether", symbol: "USDT", network: "TRC20", address: "TR7NHqscv2ba2T6GWcuv5J432vv1324", icon: "💎" },
+  { id: "eth", name: "Ethereum", symbol: "ETH", network: "ERC20", address: process.env.NEXT_PUBLIC_ETH_ADDRESS || "", icon: "🌐" },
+  { id: "btc", name: "Bitcoin", symbol: "BTC", network: "Bitcoin", address: process.env.NEXT_PUBLIC_BTC_ADDRESS || "", icon: "₿" },
+  { id: "sol", name: "Solana", symbol: "SOL", network: "Solana", address: process.env.NEXT_PUBLIC_SOL_ADDRESS || "", icon: "☀️" },
+  { id: "usdt", name: "Tether", symbol: "USDT", network: "ERC20", address: process.env.NEXT_PUBLIC_USDT_ERC20_ADDRESS || "", icon: "💵" },
+  { id: "usdt-trc", name: "Tether", symbol: "USDT", network: "TRC20", address: process.env.NEXT_PUBLIC_USDT_TRC20_ADDRESS || "", icon: "💎" },
 ];
 
 export default function Home() {
@@ -236,35 +237,7 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             {SERVICES.filter(s => s.type === "RPC").map(service => (
-              <div key={service.id} className="space-y-8">
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-[1px] bg-blue-500"></div>
-                  <h3 className="text-xl font-bold uppercase tracking-widest text-white/80">{service.name}</h3>
-                </div>
-                <div className="flex overflow-x-auto pb-8 snap-x snap-mandatory flex-nowrap sm:grid sm:grid-cols-3 gap-6 -mx-6 px-6 sm:mx-0 sm:px-0">
-                  {service.packages.map(pkg => (
-                    <div key={pkg.id} className={`snap-center shrink-0 w-[85%] sm:w-auto p-6 rounded-2xl border ${pkg.recommended ? 'border-blue-500/50 bg-blue-500/[0.05]' : 'border-white/5 bg-white/[0.02]'} flex flex-col group hover:bg-white/[0.04] transition-all`}>
-                      <div className="text-[10px] font-black tracking-widest text-white/30 mb-2 uppercase">{pkg.name}</div>
-                      <div className="text-2xl font-bold mb-6 tracking-tight">{pkg.price}</div>
-
-                      <ul className="space-y-3 mb-8 flex-grow">
-                        {pkg.features.map((f, i) => (
-                          <li key={i} className="text-[10px] font-bold text-white/40 uppercase tracking-tight flex items-center gap-2">
-                            <div className="w-1 h-1 rounded-full bg-blue-500/40"></div> {f}
-                          </li>
-                        ))}
-                      </ul>
-
-                      <button
-                        onClick={() => openModal(service, pkg)}
-                        className={`w-full py-3 rounded text-[10px] font-black tracking-widest uppercase transition-all ${pkg.recommended ? 'bg-blue-600 text-white hover:bg-blue-500' : 'bg-white/10 border border-white/5 hover:bg-white hover:text-black'}`}
-                      >
-                        {pkg.isEnterprise ? 'CONTACT' : 'BUY'}
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <PricingScroll key={service.id} service={service} onOpenModal={openModal} />
             ))}
           </div>
         </div>

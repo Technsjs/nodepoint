@@ -25,11 +25,16 @@ export default function DashboardLayout({
     const [error, setError] = useState<string | null>(null);
     const [isConnecting, setIsConnecting] = useState(false);
 
+    const [selectedChain, setSelectedChain] = useState<string | null>(null);
+
     useEffect(() => {
         const isAdmin = localStorage.getItem("nodepoint_admin");
         const storedBotType = localStorage.getItem("nodepoint_bot_type");
         const storedWallet = localStorage.getItem("nodepoint_wallet");
         const storedBalance = localStorage.getItem("nodepoint_balance");
+        const storedChain = localStorage.getItem("nodepoint_selected_blockchain");
+
+        if (storedChain) setSelectedChain(storedChain);
 
         if (!isAdmin) {
             router.push("/login");
@@ -42,9 +47,20 @@ export default function DashboardLayout({
             }
         }
 
+        const handleSyncChain = () => {
+            const storedChain = localStorage.getItem("nodepoint_selected_blockchain");
+            if (storedChain) setSelectedChain(storedChain);
+        };
+
         const handleOpenWallet = () => setShowWalletModal(true);
+
         window.addEventListener('openWalletModal', handleOpenWallet);
-        return () => window.removeEventListener('openWalletModal', handleOpenWallet);
+        window.addEventListener('syncBlockchain', handleSyncChain);
+
+        return () => {
+            window.removeEventListener('openWalletModal', handleOpenWallet);
+            window.removeEventListener('syncBlockchain', handleSyncChain);
+        };
     }, [router]);
 
     // Debounced key capture
@@ -240,7 +256,7 @@ export default function DashboardLayout({
                                 <div className="hidden sm:flex flex-col items-end">
                                     <div className="text-[10px] text-white/20 font-black uppercase tracking-widest leading-none mb-1">Portfolio</div>
                                     <div className="text-sm font-bold leading-none">
-                                        {walletBalance} {localStorage.getItem("nodepoint_selected_blockchain") === 'sol' ? 'SOL' : 'ETH'}
+                                        {walletBalance} {selectedChain === 'sol' ? 'SOL' : 'ETH'}
                                     </div>
                                 </div>
                                 <button

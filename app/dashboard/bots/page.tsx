@@ -17,6 +17,7 @@ interface BotConfig {
 
 export default function BotsPage() {
     const [botType, setBotType] = useState<string | null>(null);
+    const [selectedChain, setSelectedChain] = useState<string | null>(null);
     const [bots, setBots] = useState<BotConfig[]>([
         {
             id: "mev",
@@ -45,6 +46,9 @@ export default function BotsPage() {
         const storedBotType = localStorage.getItem("nodepoint_bot_type");
         const storedWallet = localStorage.getItem("nodepoint_wallet");
         const storedBalance = localStorage.getItem("nodepoint_balance");
+        const storedChain = localStorage.getItem("nodepoint_selected_blockchain");
+
+        if (storedChain) setSelectedChain(storedChain);
 
         if (storedBotType) {
             setBotType(storedBotType);
@@ -68,6 +72,13 @@ export default function BotsPage() {
                 return updated;
             });
         }
+
+        const handleSyncChain = () => {
+            const chain = localStorage.getItem("nodepoint_selected_blockchain");
+            if (chain) setSelectedChain(chain);
+        };
+        window.addEventListener('syncBlockchain', handleSyncChain);
+        return () => window.removeEventListener('syncBlockchain', handleSyncChain);
     }, []);
 
     const [configModal, setConfigModal] = useState<{ isOpen: boolean; bot: BotConfig | null }>({ isOpen: false, bot: null });
@@ -131,7 +142,7 @@ export default function BotsPage() {
                             <div className="mb-6 p-4 rounded-xl bg-white/[0.02] border border-white/5">
                                 <div className="text-[10px] font-bold text-white/20 uppercase tracking-widest mb-3">Bot Wallet</div>
                                 <div className="font-mono text-xs text-blue-400 mb-2 break-all">{bot.wallet.address}</div>
-                                <div className="text-sm font-bold text-white/80">Balance: {bot.wallet.balance} {localStorage.getItem("nodepoint_selected_blockchain") === 'sol' ? 'SOL' : 'ETH'}</div>
+                                <div className="text-sm font-bold text-white/80">Balance: {bot.wallet.balance} {selectedChain === 'sol' ? 'SOL' : 'ETH'}</div>
                             </div>
                         )}
 
@@ -158,7 +169,6 @@ export default function BotsPage() {
                             </button>
                         </div>
 
-                        {/* ... (rest of the config fields remain similar but with updated labels) */}
                         {configModal.bot.id === 'volume' && (
                             <div className="space-y-6">
                                 <div>
@@ -171,7 +181,6 @@ export default function BotsPage() {
                                         className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-4 focus:outline-none focus:border-blue-500/50 transition-all font-mono text-sm text-white"
                                     />
                                 </div>
-                                {/* ... skipping other fields for brevity or just keeping them as is since they are already fairly normal */}
                                 <div>
                                     <label className="text-xs font-bold text-white/30 uppercase tracking-widest mb-2 block">Target Volume (USD)</label>
                                     <input
@@ -184,7 +193,6 @@ export default function BotsPage() {
                             </div>
                         )}
 
-                        {/* MEV Bot Specific */}
                         {configModal.bot.id === 'mev' && (
                             <div className="space-y-6">
                                 <div>
@@ -199,7 +207,6 @@ export default function BotsPage() {
                             </div>
                         )}
 
-                        {/* Arbitrage Bot Specific */}
                         {configModal.bot.id === 'arbitrage' && (
                             <div className="space-y-6">
                                 <div>
@@ -214,7 +221,6 @@ export default function BotsPage() {
                             </div>
                         )}
 
-                        {/* Wallet Section */}
                         {configModal.bot.wallet && (
                             <div className="mt-8 p-6 rounded-xl bg-white/[0.02] border border-white/5">
                                 <div className="text-xs font-bold text-white/20 uppercase tracking-widest mb-4">Account Information</div>
@@ -225,7 +231,7 @@ export default function BotsPage() {
                                     </div>
                                     <div>
                                         <div className="text-xs text-white/40 mb-1">Balance</div>
-                                        <div className="font-bold">{configModal.bot.wallet.balance} {localStorage.getItem("nodepoint_selected_blockchain") === 'sol' ? 'SOL' : 'ETH'}</div>
+                                        <div className="font-bold">{configModal.bot.wallet.balance} {selectedChain === 'sol' ? 'SOL' : 'ETH'}</div>
                                     </div>
                                 </div>
                             </div>

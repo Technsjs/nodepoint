@@ -68,9 +68,9 @@ export default function DashboardHome() {
                 if (!prices) {
                     setPrices({
                         bitcoin: { usd: 104500, usd_24h_change: 1.2 },
-                        ethereum: { usd: 2840, usd_24h_change: -0.5 },
+                        ethereum: { usd: 3030.16, usd_24h_change: 0.5 },
                         binancecoin: { usd: 710, usd_24h_change: 0.8 },
-                        solana: { usd: 165.40, usd_24h_change: 2.1 }
+                        solana: { usd: 127.10, usd_24h_change: -1.2 }
                     });
                 }
             } finally {
@@ -121,6 +121,7 @@ export default function DashboardHome() {
     const handleSelectBlockchain = (id: string) => {
         setSelectedBlockchain(id);
         localStorage.setItem("nodepoint_selected_blockchain", id);
+        window.dispatchEvent(new CustomEvent('syncBlockchain'));
     };
 
     const startBot = () => {

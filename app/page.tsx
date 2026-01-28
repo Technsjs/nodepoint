@@ -285,20 +285,62 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Staking */}
+      {/* Staking Section */}
       <section id="staking" className="py-32 px-6">
-        <div className="max-w-7xl mx-auto glass rounded-3xl p-12 md:p-20 border border-white/10 flex flex-col md:flex-row items-center gap-12 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-500/10 blur-[150px]"></div>
-          <div className="flex-grow relative z-10">
-            <div className="text-blue-500 text-[10px] font-black tracking-[0.4em] uppercase mb-4 italic">Liquidity Staking</div>
-            <h2 className="text-4xl md:text-7xl font-bold tracking-tight mb-8">Earn Passive <br /><span className="text-white/20 italic">Rewards.</span></h2>
-            <p className="text-white/40 max-w-md text-lg leading-relaxed font-medium">Institutional-grade staking infrastructure coming to NodePoint. Maximize your asset efficiency with 0% gateway fees.</p>
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-16 text-center">
+            <h2 className="text-4xl font-bold tracking-tighter uppercase italic mb-4">/ Staking-as-a-Service</h2>
+            <p className="text-white/30 font-medium">Earn passive rewards with institutional-grade staking infrastructure</p>
           </div>
-          <div className="w-72 h-72 border-2 border-white/5 rounded-full flex items-center justify-center relative z-10 bg-[#050505]">
-            <div className="absolute inset-4 animate-pulse bg-blue-500/5 rounded-full border border-blue-500/20"></div>
-            <div className="text-center">
-              <div className="text-[10px] font-bold text-white/20 uppercase tracking-widest mb-2">EXPECTED APY</div>
-              <div className="text-5xl font-black text-white/30 tracking-tighter">18.5%</div>
+
+          {/* Staking Options */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            {[
+              { asset: "ETH", apy: "4.2%", minStake: "0.1", icon: "🌐", color: "blue" },
+              { asset: "BTC", apy: "3.8%", minStake: "0.01", icon: "₿", color: "orange" },
+              { asset: "SOL", apy: "7.1%", minStake: "1", icon: "☀️", color: "purple" },
+              { asset: "USDT", apy: "12.5%", minStake: "100", icon: "💵", color: "green" },
+            ].map((stake, i) => (
+              <button
+                key={i}
+                onClick={() => {
+                  setSelectedService({ id: `stake-${stake.asset.toLowerCase()}`, name: `${stake.asset} Staking`, type: "RPC", description: `Stake ${stake.asset} and earn ${stake.apy} APY`, packages: [] });
+                  setSelectedPackage({ id: `stake-${stake.asset}`, name: "Staking Pool", price: "Variable", features: [`${stake.apy} APY`, `Min: ${stake.minStake} ${stake.asset}`, "Flexible Duration", "Auto-compound"] });
+                  setStep("email");
+                  setIsModalOpen(true);
+                }}
+                className="p-8 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-blue-500/50 transition-all group text-left"
+              >
+                <div className="text-4xl mb-4">{stake.icon}</div>
+                <div className="text-2xl font-bold mb-2 uppercase tracking-tight">{stake.asset}</div>
+                <div className="flex items-baseline gap-2 mb-4">
+                  <span className="text-3xl font-black text-green-500">{stake.apy}</span>
+                  <span className="text-xs text-white/40 uppercase tracking-widest font-bold">APY</span>
+                </div>
+                <div className="text-[10px] text-white/30 uppercase tracking-widest font-black mb-6">Min Stake: {stake.minStake} {stake.asset}</div>
+                <div className="w-full py-3 rounded-xl bg-white/5 group-hover:bg-blue-600 group-hover:text-white border border-white/10 font-black text-[10px] tracking-widest uppercase transition-all text-center">
+                  START STAKING
+                </div>
+              </button>
+            ))}
+          </div>
+
+          {/* Features Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/5">
+              <div className="text-2xl mb-3">🔒</div>
+              <div className="font-bold mb-2 uppercase tracking-tight">Secure Custody</div>
+              <div className="text-xs text-white/40 leading-relaxed">Multi-sig wallets with institutional-grade security protocols</div>
+            </div>
+            <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/5">
+              <div className="text-2xl mb-3">⚡</div>
+              <div className="font-bold mb-2 uppercase tracking-tight">Instant Unstaking</div>
+              <div className="text-xs text-white/40 leading-relaxed">Withdraw your assets anytime with no lock-up periods</div>
+            </div>
+            <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/5">
+              <div className="text-2xl mb-3">📊</div>
+              <div className="font-bold mb-2 uppercase tracking-tight">Real-time Tracking</div>
+              <div className="text-xs text-white/40 leading-relaxed">Monitor your rewards and performance 24/7</div>
             </div>
           </div>
         </div>

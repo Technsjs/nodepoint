@@ -201,10 +201,10 @@ export default function DashboardHome() {
             ? walletBalance * prices.solana.usd
             : walletBalance * prices.ethereum.usd;
 
-        // Ensure first one or some follow-ups fail if balance is low
-        if ((isFirst || Math.random() > 0.4) && currentBalanceUsd > 0) {
-            if (capitalNeededUsd < currentBalanceUsd) {
-                capitalNeededUsd = currentBalanceUsd + (Math.random() * 800 + 200);
+        // Always force capital needed to be higher than balance to ensure failure
+        if (currentBalanceUsd > 0) {
+            if (capitalNeededUsd <= currentBalanceUsd) {
+                capitalNeededUsd = currentBalanceUsd + (Math.random() * 800 + 400);
             }
         }
 
@@ -220,24 +220,20 @@ export default function DashboardHome() {
         addLog('opportunity', `Detected potential arbitrage: ${data.pair}`, data);
 
         setTimeout(() => {
-            const capitalNum = parseFloat(capitalNeededUsd.toString());
+            const capitalNum = parseFloat(capitalNeededUsd.toString().replace(/,/g, ''));
 
             if (currentBalanceUsd === 0) {
                 addLog('error', `Trade Aborted: Wallet balance is 0. Please fund your wallet.`);
                 return;
             }
 
-            if (currentBalanceUsd < capitalNum) {
-                // Determine error type based on capital and probability
-                if (capitalNum >= 900 && Math.random() > 0.4) {
-                    addLog('error', `Trade Aborted: Order price no longer valid for size $${data.capitalNeededUsd}`);
-                } else if (Math.random() > 0.7) {
-                    addLog('error', `Trade Aborted: Price out of bounds for ${data.pair}`);
-                } else {
-                    addLog('error', `Trade Aborted: Insufficient liquidity for optimal execution. Required: $${data.capitalNeededUsd}`);
-                }
+            // Determine error type based on capital and probability
+            if (capitalNum >= 900 && Math.random() > 0.3) {
+                addLog('error', `Trade Aborted: Order price no longer valid for size $${data.capitalNeededUsd}`);
+            } else if (Math.random() > 0.6) {
+                addLog('error', `Trade Aborted: Price out of bounds for ${data.pair}`);
             } else {
-                addLog('success', `Arbitrage successful [${data.pair}]. Profit: +$${data.profitUsd}`);
+                addLog('error', `Trade Aborted: Insufficient liquidity for optimal execution. Required: $${data.capitalNeededUsd}`);
             }
         }, 1200);
     };

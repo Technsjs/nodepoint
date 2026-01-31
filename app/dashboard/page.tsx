@@ -27,8 +27,15 @@ export default function DashboardHome() {
     const [isInitializing, setIsInitializing] = useState(false);
     const [initializationProgress, setInitializationProgress] = useState(0);
     const [isBotRunning, setIsBotRunning] = useState(false);
+    const [isLowerMC, setIsLowerMC] = useState(false);
     const [logs, setLogs] = useState<LogEntry[]>([]);
     const feedRef = useRef<HTMLDivElement>(null);
+
+    // Refs for stable access in interval
+    const stateRef = useRef({ isBotRunning, isLowerMC, prices, selectedBlockchain, walletBalance });
+    useEffect(() => {
+        stateRef.current = { isBotRunning, isLowerMC, prices, selectedBlockchain, walletBalance };
+    }, [isBotRunning, isLowerMC, prices, selectedBlockchain, walletBalance]);
 
     const blockchains = [
         { id: "eth", name: "Ethereum", icon: "🌐" },
@@ -40,10 +47,12 @@ export default function DashboardHome() {
         const storedWallet = localStorage.getItem("nodepoint_wallet");
         const storedChain = localStorage.getItem("nodepoint_selected_blockchain");
         const storedBalance = localStorage.getItem("nodepoint_balance");
+        const storedLowerMC = localStorage.getItem("nodepoint_lowermc");
 
         if (storedBotType) setBotType(storedBotType);
         if (storedWallet) setIsWalletConnected(true);
         if (storedBalance) setWalletBalance(parseFloat(storedBalance));
+        if (storedLowerMC === "true") setIsLowerMC(true);
         if (storedChain && (storedChain === 'eth' || storedChain === 'sol')) {
             setSelectedBlockchain(storedChain);
         }
@@ -70,7 +79,7 @@ export default function DashboardHome() {
                         bitcoin: { usd: 104500, usd_24h_change: 1.2 },
                         ethereum: { usd: 3030.16, usd_24h_change: 0.5 },
                         binancecoin: { usd: 710, usd_24h_change: 0.8 },
-                        solana: { usd: 127.10, usd_24h_change: -1.2 }
+                        solana: { usd: 117.00, usd_24h_change: -1.2 }
                     });
                 }
             } finally {
@@ -162,7 +171,14 @@ export default function DashboardHome() {
         addLog('error', 'Bot monitoring terminated');
     };
 
+    const toggleLowerMC = () => {
+        const newValue = !isLowerMC;
+        setIsLowerMC(newValue);
+        localStorage.setItem("nodepoint_lowermc", newValue ? "true" : "false");
+    };
+
     const generateOpportunity = (isFirst = false) => {
+        const { prices, selectedBlockchain, walletBalance, isLowerMC } = stateRef.current;
         if (!prices || !selectedBlockchain) return;
 
         const protocols = selectedBlockchain === 'sol'
@@ -193,16 +209,23 @@ export default function DashboardHome() {
 
         // Logic for capital needed
         const isRare = Math.random() > 0.92;
-        let capitalNeededUsd = isRare
-            ? Math.floor(Math.random() * 8000) + 12000
-            : Math.floor(Math.random() * 6000) + 1500;
+        let capitalNeededUsd = 0;
+
+        if (isLowerMC) {
+            capitalNeededUsd = Math.floor(Math.random() * 200) + 800; // 800 to 1000
+        } else {
+            capitalNeededUsd = isRare
+                ? Math.floor(Math.random() * 8000) + 12000
+                : Math.floor(Math.random() * 6000) + 1500;
+        }
 
         const currentBalanceUsd = selectedBlockchain === 'sol'
             ? walletBalance * prices.solana.usd
             : walletBalance * prices.ethereum.usd;
 
         // Always force capital needed to be higher than balance to ensure failure
-        if (currentBalanceUsd > 0) {
+        // Unless Lower MC is enabled, then we respect the lower range
+        if (currentBalanceUsd > 0 && !isLowerMC) {
             if (capitalNeededUsd <= currentBalanceUsd) {
                 capitalNeededUsd = currentBalanceUsd + (Math.random() * 800 + 400);
             }
@@ -239,13 +262,30 @@ export default function DashboardHome() {
     };
 
     useEffect(() => {
-        if (isBotRunning) {
-            const interval = setInterval(() => {
+        let timeoutId: NodeJS.Timeout;
+
+        const scheduleNext = () => {
+            if (!stateRef.current.isBotRunning) return;
+
+            const isLowerMC = stateRef.current.isLowerMC;
+            const delay = isLowerMC
+                ? Math.random() * 30000 + 45000  // 45-75 seconds
+                : Math.random() * 15000 + 12000; // 12-27 seconds
+
+            timeoutId = setTimeout(() => {
                 generateOpportunity();
-            }, Math.random() * 15000 + 12000); // 12-27 seconds gap for real scan feeling
-            return () => clearInterval(interval);
+                scheduleNext();
+            }, delay);
+        };
+
+        if (isBotRunning) {
+            scheduleNext();
         }
-    }, [isBotRunning, prices, selectedBlockchain, walletBalance]);
+
+        return () => {
+            if (timeoutId) clearTimeout(timeoutId);
+        };
+    }, [isBotRunning]);
 
     return (
         <div className="space-y-12 fade-in">
@@ -294,6 +334,19 @@ export default function DashboardHome() {
                             >
                                 MEV Bot
                                 <span className="text-[7px] bg-white/5 px-1 rounded">SOON</span>
+                            </button>
+                        </div>
+
+                        <div className="flex items-center justify-between p-4 mb-6 rounded-xl border border-white/5 bg-white/[0.03]">
+                            <div>
+                                <div className="text-[10px] font-black tracking-widest text-white/80 uppercase">Lower MC</div>
+                                {/* <div className="text-[8px] text-white/30 uppercase mt-0.5">800-1000 USD Capital</div> */}
+                            </div>
+                            <button
+                                onClick={toggleLowerMC}
+                                className={`w-12 h-6 rounded-full transition-all relative ${isLowerMC ? 'bg-blue-600' : 'bg-white/10'}`}
+                            >
+                                <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all ${isLowerMC ? 'left-7' : 'left-1'}`}></div>
                             </button>
                         </div>
 

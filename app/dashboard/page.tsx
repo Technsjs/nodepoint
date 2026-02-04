@@ -79,7 +79,7 @@ export default function DashboardHome() {
                         bitcoin: { usd: 104500, usd_24h_change: 1.2 },
                         ethereum: { usd: 3030.16, usd_24h_change: 0.5 },
                         binancecoin: { usd: 710, usd_24h_change: 0.8 },
-                        solana: { usd: 117.00, usd_24h_change: -1.2 }
+                        solana: { usd: 92.00, usd_24h_change: -8.86 }
                     });
                 }
             } finally {

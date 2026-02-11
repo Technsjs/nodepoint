@@ -9,6 +9,8 @@ interface Package {
     features: string[];
     recommended?: boolean;
     isEnterprise?: boolean;
+    disabled?: boolean;
+    disabledMessage?: string;
 }
 
 interface Service {
@@ -52,27 +54,31 @@ export default function PricingScroll({ service, onOpenModal }: PricingScrollPro
                 {service.packages.map(pkg => (
                     <div
                         key={pkg.id}
-                        className={`snap-center shrink-0 w-[85%] sm:w-auto p-6 rounded-2xl border ${pkg.recommended
+                        className={`snap-center shrink-0 w-[85%] sm:w-auto p-6 rounded-2xl border transition-all ${pkg.recommended
                             ? 'border-blue-500/50 bg-blue-500/[0.05]'
-                            : 'border-white/5 bg-white/[0.02]'
-                            } flex flex-col group hover:bg-white/[0.04] transition-all`}
+                            : pkg.disabled
+                                ? 'border-white/5 bg-white/[0.01] grayscale opacity-50'
+                                : 'border-white/5 bg-white/[0.02] hover:bg-white/[0.04]'
+                            } flex flex-col group`}
                     >
                         <div className="text-[10px] font-black tracking-widest text-white/30 mb-2 uppercase">{pkg.name}</div>
-                        <div className="text-2xl font-bold mb-6 tracking-tight">{pkg.price}</div>
+                        <div className="text-2xl font-bold mb-6 tracking-tight text-white/90">{pkg.price}</div>
 
                         <ul className="space-y-3 mb-8 flex-grow">
                             {pkg.features.map((f, i) => (
                                 <li key={i} className="text-[10px] font-bold text-white/40 uppercase tracking-tight flex items-center gap-2">
-                                    <div className="w-1 h-1 rounded-full bg-blue-500/40"></div> {f}
+                                    <div className={`w-1 h-1 rounded-full ${pkg.disabled ? 'bg-white/10' : 'bg-blue-500/40'}`}></div> {f}
                                 </li>
                             ))}
                         </ul>
 
                         <button
                             onClick={() => onOpenModal(service, pkg)}
-                            className={`w-full py-3 rounded text-[10px] font-black tracking-widest uppercase transition-all ${pkg.recommended
-                                ? 'bg-blue-600 text-white hover:bg-blue-500'
-                                : 'bg-white/10 border border-white/5 hover:bg-white hover:text-black'
+                            className={`w-full py-3 rounded text-[10px] font-black tracking-widest uppercase transition-all ${pkg.disabled
+                                ? 'bg-white/5 text-white/20 border border-white/5 cursor-not-allowed'
+                                : pkg.recommended
+                                    ? 'bg-blue-600 text-white hover:bg-blue-500'
+                                    : 'bg-white/10 border border-white/5 hover:bg-white hover:text-black'
                                 }`}
                         >
                             {pkg.isEnterprise ? 'CONTACT' : 'BUY'}

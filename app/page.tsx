@@ -11,6 +11,8 @@ type Package = {
   price: string;
   isEnterprise?: boolean;
   recommended?: boolean;
+  disabled?: boolean;
+  disabledMessage?: string;
   features: string[];
 };
 
@@ -23,6 +25,17 @@ type Service = {
 };
 
 const SERVICES: Service[] = [
+  {
+    id: "kyc-multi-device",
+    name: "Kyc multiple devices source code",
+    type: "RPC",
+    description: "Advanced multi-device biometric verification and identity source code.",
+    packages: [
+      { id: "kyc-multi-basic", name: "Basic", price: "$179", disabled: true, disabledMessage: "package not in bound for api", features: ["Single Device Core", "Standard Biometrics", "Email Support"] },
+      { id: "kyc-multi-std", name: "Standard", price: "$289", recommended: true, features: ["Multi-device License", "Advanced Biometrics", "Priority Support", "Full Source Access"] },
+      { id: "kyc-multi-ent", name: "Enterprise", price: "Custom", isEnterprise: true, features: ["Unlimited Devices", "Custom Integration", "Dedicated Support", "Full Whitelabel"] },
+    ],
+  },
   {
     id: "rpc-eth",
     name: "Ethereum RPC",
@@ -127,6 +140,14 @@ export default function Home() {
   const [statusModal, setStatusModal] = useState<{ isOpen: boolean; title: string; message: string } | null>(null);
 
   const openModal = (svc: Service, pkg: Package) => {
+    if (pkg.disabled) {
+      setStatusModal({
+        isOpen: true,
+        title: "ACCESS RESTRICTED",
+        message: pkg.disabledMessage || "This package is currently unavailable for your API tier."
+      });
+      return;
+    }
     setSelectedService(svc);
     setSelectedPackage(pkg);
     setIsModalOpen(true);

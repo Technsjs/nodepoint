@@ -234,7 +234,7 @@ export default function DashboardLayout({
         { href: "/dashboard/bots", label: "My Bots", icon: "🤖" },
         // { href: "/dashboard/rpc", label: "RPC Data", icon: "🌐" },
         // { href: "/dashboard/staking", label: "Staking", icon: "💎" },
-        // { href: "/dashboard/analytics", label: "History", icon: "📈" },
+        { href: "/dashboard/analytics", label: "Analytics", icon: "📈" },
         { href: "/dashboard/settings", label: "Settings", icon: "⚙️" },
     ];
 

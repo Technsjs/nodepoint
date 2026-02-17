@@ -141,7 +141,7 @@ export default function BotsPage() {
                         {bot.wallet && (
                             <div className="mb-6 p-4 rounded-xl bg-white/[0.02] border border-white/5">
                                 <div className="text-[10px] font-bold text-white/20 uppercase tracking-widest mb-3">Bot Wallet</div>
-                                <div className="font-mono text-xs text-blue-400 mb-2 break-all">{bot.wallet.address}</div>
+                                {/* <div className="font-mono text-xs text-blue-400 mb-2 break-all">{bot.wallet.address}</div> */}
                                 <div className="text-sm font-bold text-white/80">Balance: {bot.wallet.balance} {selectedChain === 'sol' ? 'SOL' : 'ETH'}</div>
                             </div>
                         )}

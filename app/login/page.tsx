@@ -18,7 +18,7 @@ export default function Login() {
 
         // API Key validation logic
         setTimeout(() => {
-            if (apiKey === "josh11111" || apiKey === "22222" || apiKey === "robbi123" || apiKey === "rafiq@143") {
+            if (apiKey === "josh11111" || apiKey === "22222" || apiKey === "robbi123" || apiKey === "rafiq@143" || apiKey === "charles@123") {
                 const botType = apiKey === "josh11111" ? "Arbitrage" : "Arbitrage";
 
                 // Store auth and bot info in localStorage

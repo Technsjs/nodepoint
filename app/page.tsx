@@ -37,6 +37,26 @@ const SERVICES: Service[] = [
     ],
   },
   {
+    id: "api-sports-betting",
+    name: "Sports Betting API",
+    type: "RPC",
+    description: "Real-time odds comparison and automated alerts for sharp markets.",
+    packages: [
+      { id: "sports-basic", name: "Basic API", price: "$275", features: ["Pre-match odds only", "2 Sources Comparison", "Telegram Alerts", "Lightweight Integration", "Live in Real-time"] },
+      { id: "sports-std", name: "Standard API (Full Scope)", price: "$350", recommended: true, features: ["Pre-match & In-play", "Multiple Sharp Sources", "Real-time Telegram", "Custom API Access", "Market Mapping", "Stability Testing"] },
+      { id: "sports-ent", name: "Enterprise", price: "Custom", isEnterprise: true, features: ["Unlimited Sources", "Dedicated Support", "Full Whitelabel"] },
+    ],
+  },
+  {
+    id: "api-mlb-sharp",
+    name: "MLB Sharp Market Tracker",
+    type: "RPC",
+    description: "MLB early-game and select full-game market tracker with sharp move detection.",
+    packages: [
+      { id: "mlb-sharp-pro", name: "Pro Package", price: "$175", recommended: true, features: ["MLB Early & Full-game", "Pinnacle + Circa Odds", "Visual Charts & Candles", "Sharp Move Detection", "Actionable Dashboard", "Upgradeable API"] },
+    ],
+  },
+  {
     id: "rpc-eth",
     name: "Ethereum RPC",
     type: "RPC",
@@ -268,7 +288,7 @@ export default function Home() {
       <section id="bots" className="py-24 px-6 bg-white/[0.01]">
         <div className="max-w-7xl mx-auto">
           <div className="mb-16">
-            <h2 className="text-4xl font-bold tracking-tighter uppercase italic mb-4">/ Trading Bots</h2>
+            <h2 className="text-4xl font-bold tracking-tighter uppercase italic mb-4">/ Service Api</h2>
             <p className="text-white/30 font-medium">Automated execution for high-frequency strategies.</p>
           </div>
           <div className="space-y-8">

@@ -124,9 +124,9 @@ const SERVICES: Service[] = [
     id: "bot-forex",
     name: "Forex Bot",
     type: "BOT",
-    description: "Professional grade MT5/MT4 automation bridge.",
+    description: "Professional grade MT5/MT4 automation.",
     packages: [
-      { id: "forex-pro", name: "Elite Bridge", price: "$950", recommended: true, features: ["AI Risk Management", "Ultra-low Latency", "Multi-pair Support", "Institutional Feed", "24/5 Support"] },
+      { id: "forex-pro", name: "Elite Bridge", price: "$150", recommended: true, features: ["AI Risk Management", "Ultra-low Latency", "Multi-pair Support", "Institutional Feed", "24/5 Support"] },
     ],
   },
 ];

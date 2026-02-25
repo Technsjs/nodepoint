@@ -245,6 +245,7 @@ export default function Home() {
           <div className="hidden md:flex gap-8 text-[10px] font-black tracking-[0.2em] text-white/40">
             <a href="#rpc" className="hover:text-white transition-colors">INFRASTRUCTURE</a>
             <a href="#bots" className="hover:text-white transition-colors">TRADING BOTS</a>
+            <a href="#decompiler" className="hover:text-white transition-colors">DECOMPILER</a>
             <a href="#staking" className="hover:text-white transition-colors">STAKING</a>
             <Link href="/docs" className="hover:text-white transition-colors">DOCS</Link>
           </div>
@@ -322,6 +323,117 @@ export default function Home() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* EX5 Decompiler Section */}
+      <section id="decompiler" className="py-24 px-6 border-t border-white/5">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-16">
+            <div className="flex items-center gap-4 mb-4">
+              <h2 className="text-4xl font-bold tracking-tighter uppercase italic">/ EX5 Decompiler</h2>
+              <span className="px-3 py-1 bg-blue-600/10 border border-blue-500/20 text-blue-400 text-[10px] font-black tracking-widest uppercase rounded">API TOOL</span>
+            </div>
+            <p className="text-white/30 font-medium max-w-xl">Reverse-engineer and decompile compiled MT5 Expert Advisors. Each API call processes and returns decompiled source output.</p>
+          </div>
+
+          {/* Pricing Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            {/* 1 Call */}
+            <div className="relative p-8 rounded-2xl border border-white/5 bg-white/[0.02] hover:border-white/10 transition-all flex flex-col">
+              <div className="text-[10px] font-black tracking-widest text-white/20 uppercase mb-6">1 API CALL</div>
+              <div className="text-5xl font-black tracking-tighter mb-2">$99</div>
+              <div className="text-[10px] text-white/30 font-bold uppercase tracking-widest mb-8">per decompilation</div>
+              <ul className="space-y-3 flex-grow mb-8">
+                {["Single EX5 file", "Full source output", "Email delivery", "72h processing"].map((f, i) => (
+                  <li key={i} className="flex items-center gap-3">
+                    <div className="w-4 h-4 rounded-full bg-white/5 flex items-center justify-center shrink-0">
+                      <svg className="w-2.5 h-2.5 text-white/40" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+                    </div>
+                    <span className="text-[11px] font-bold text-white/40 uppercase tracking-widest">{f}</span>
+                  </li>
+                ))}
+              </ul>
+              <button
+                onClick={() => openModal(
+                  { id: "ex5-decompiler", name: "EX5 Decompiler API", type: "RPC", description: "Decompile MT5 Expert Advisors", packages: [] },
+                  { id: "ex5-1call", name: "1 Call", price: "$99", features: ["Single EX5 file", "Full source output", "Email delivery", "72h processing"] }
+                )}
+                className="w-full py-4 bg-white/5 border border-white/10 rounded-xl font-black text-[10px] tracking-widest uppercase hover:bg-white hover:text-black transition-all"
+              >GET ACCESS</button>
+            </div>
+
+            {/* 2 Calls */}
+            <div className="relative p-8 rounded-2xl border border-white/5 bg-white/[0.02] hover:border-white/10 transition-all flex flex-col">
+              <div className="text-[10px] font-black tracking-widest text-white/20 uppercase mb-6">2 API CALLS</div>
+              <div className="text-5xl font-black tracking-tighter mb-2">$160</div>
+              <div className="text-[10px] text-white/30 font-bold uppercase tracking-widest mb-8">per bundle</div>
+              <ul className="space-y-3 flex-grow mb-8">
+                {["Two EX5 files", "Full source output", "Email delivery", "48h processing"].map((f, i) => (
+                  <li key={i} className="flex items-center gap-3">
+                    <div className="w-4 h-4 rounded-full bg-white/5 flex items-center justify-center shrink-0">
+                      <svg className="w-2.5 h-2.5 text-white/40" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+                    </div>
+                    <span className="text-[11px] font-bold text-white/40 uppercase tracking-widest">{f}</span>
+                  </li>
+                ))}
+              </ul>
+              <button
+                onClick={() => openModal(
+                  { id: "ex5-decompiler", name: "EX5 Decompiler API", type: "RPC", description: "Decompile MT5 Expert Advisors", packages: [] },
+                  { id: "ex5-2call", name: "2 Calls", price: "$160", features: ["Two EX5 files", "Full source output", "Email delivery", "48h processing"] }
+                )}
+                className="w-full py-4 bg-white/5 border border-white/10 rounded-xl font-black text-[10px] tracking-widest uppercase hover:bg-white hover:text-black transition-all"
+              >GET ACCESS</button>
+            </div>
+
+            {/* 5 Calls — Recommended */}
+            <div className="relative p-8 rounded-2xl border border-blue-500/30 bg-blue-600/5 hover:border-blue-500/50 transition-all flex flex-col overflow-hidden">
+              <div className="absolute top-0 right-0 w-40 h-40 bg-blue-500/10 blur-[80px] -z-10" />
+              <div className="flex items-center justify-between mb-6">
+                <div className="text-[10px] font-black tracking-widest text-white/20 uppercase">5 API CALLS</div>
+                <div className="px-2 py-1 bg-blue-600 text-white text-[9px] font-black tracking-widest uppercase rounded">RECOMMENDED</div>
+              </div>
+              <div className="text-5xl font-black tracking-tighter mb-2">$300</div>
+              <div className="text-[10px] text-white/30 font-bold uppercase tracking-widest mb-8">per bundle</div>
+              <ul className="space-y-3 flex-grow mb-8">
+                {["Five EX5 files", "Full source output", "Priority email", "24h processing", "Best value per call"].map((f, i) => (
+                  <li key={i} className="flex items-center gap-3">
+                    <div className="w-4 h-4 rounded-full bg-blue-500/10 flex items-center justify-center shrink-0">
+                      <svg className="w-2.5 h-2.5 text-blue-400" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+                    </div>
+                    <span className="text-[11px] font-bold text-white/50 uppercase tracking-widest">{f}</span>
+                  </li>
+                ))}
+              </ul>
+              <button
+                onClick={() => openModal(
+                  { id: "ex5-decompiler", name: "EX5 Decompiler API", type: "RPC", description: "Decompile MT5 Expert Advisors", packages: [] },
+                  { id: "ex5-5call", name: "5 Calls", price: "$300", features: ["Five EX5 files", "Full source output", "Priority email", "24h processing", "Best value per call"] }
+                )}
+                className="w-full py-4 bg-blue-600 text-white rounded-xl font-black text-[10px] tracking-widest uppercase hover:bg-blue-500 transition-all shadow-lg shadow-blue-600/20"
+              >GET ACCESS</button>
+            </div>
+          </div>
+
+          {/* Notice + Docs Link */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 rounded-2xl bg-white/[0.02] border border-white/5">
+            <div className="flex items-start gap-4">
+              <div className="w-2 h-2 rounded-full bg-amber-500 mt-1.5 shrink-0 animate-pulse" />
+              <p className="text-[11px] font-bold text-white/40 uppercase tracking-widest leading-relaxed">
+                Only <span className="text-white/70">successful decompilations</span> are deducted from your call balance. Failed jobs do not consume credits and render the target API protection useless.
+              </p>
+            </div>
+            <a
+              href="/decompiler-docs"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shrink-0 flex items-center gap-2 px-5 py-3 rounded-xl border border-white/10 bg-white/[0.03] text-[10px] font-black tracking-widest uppercase text-white/40 hover:text-white hover:border-white/20 transition-all"
+            >
+              Documentation
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+            </a>
           </div>
         </div>
       </section>

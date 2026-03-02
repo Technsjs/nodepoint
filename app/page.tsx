@@ -27,12 +27,12 @@ type Service = {
 const SERVICES: Service[] = [
   {
     id: "kyc-multi-device",
-    name: "Kyc multiple devices source code",
+    name: "KYC multiple devices decompiler",
     type: "RPC",
     description: "Advanced multi-device biometric verification and identity source code.",
     packages: [
-      { id: "kyc-multi-basic", name: "Basic", price: "$179", disabled: true, disabledMessage: "package not in bound for api", features: ["Single Device Core", "Standard Biometrics", "Email Support"] },
-      { id: "kyc-multi-std", name: "Standard", price: "$289", recommended: true, features: ["Multi-device License", "Advanced Biometrics", "Priority Support", "Full Source Access"] },
+      { id: "kyc-multi-basic", name: "Basic", price: "$179", disabled: true, disabledMessage: "package not in bound for api", features: ["2 Month License", "Single Device Core", "Standard Biometrics", "Email Support"] },
+      { id: "kyc-multi-std", name: "Standard", price: "$489", recommended: true, features: ["1 Year License", "Multi-device License", "Advanced Biometrics", "Priority Support", "Full Source Access"] },
       { id: "kyc-multi-ent", name: "Enterprise", price: "Custom", isEnterprise: true, features: ["Unlimited Devices", "Custom Integration", "Dedicated Support", "Full Whitelabel"] },
     ],
   },
@@ -332,45 +332,49 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="mb-16">
             <div className="flex items-center gap-4 mb-4">
-              <h2 className="text-4xl font-bold tracking-tighter uppercase italic">/ EX5 Decompiler</h2>
+              <h2 className="text-4xl font-bold tracking-tighter uppercase italic"> Decompiler</h2>
               <span className="px-3 py-1 bg-blue-600/10 border border-blue-500/20 text-blue-400 text-[10px] font-black tracking-widest uppercase rounded">API TOOL</span>
             </div>
-            <p className="text-white/30 font-medium max-w-xl">Reverse-engineer and decompile compiled MT5 Expert Advisors. Each API call processes and returns decompiled source output.</p>
+            <p className="text-white/30 font-medium max-w-xl">Reverse-engineer and decompile compiled files Each API call processes and returns decompiled source output.</p>
           </div>
 
           {/* Pricing Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-            {/* 1 Call */}
-            <div className="relative p-8 rounded-2xl border border-white/5 bg-white/[0.02] hover:border-white/10 transition-all flex flex-col">
-              <div className="text-[10px] font-black tracking-widest text-white/20 uppercase mb-6">1 API CALL</div>
-              <div className="text-5xl font-black tracking-tighter mb-2">$99</div>
-              <div className="text-[10px] text-white/30 font-bold uppercase tracking-widest mb-8">per decompilation</div>
+
+            {/* $99 — Not Available */}
+            <div className="relative p-8 rounded-2xl border border-white/5 bg-white/[0.02] opacity-60 flex flex-col">
+              <div className="flex items-center justify-between mb-6">
+                <div className="text-[10px] font-black tracking-widest text-white/20 uppercase">Starter</div>
+                <div className="px-2 py-1 bg-red-600/20 border border-red-500/30 text-red-400 text-[9px] font-black tracking-widest uppercase rounded">NOT AVAILABLE</div>
+              </div>
+              <div className="text-5xl font-black tracking-tighter mb-2 text-white/40">$99</div>
+              <div className="text-[10px] text-white/20 font-bold uppercase tracking-widest mb-8">one-time</div>
               <ul className="space-y-3 flex-grow mb-8">
                 {["Single EX5 file", "Full source output", "Email delivery", "72h processing"].map((f, i) => (
                   <li key={i} className="flex items-center gap-3">
                     <div className="w-4 h-4 rounded-full bg-white/5 flex items-center justify-center shrink-0">
-                      <svg className="w-2.5 h-2.5 text-white/40" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+                      <svg className="w-2.5 h-2.5 text-white/20" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
                     </div>
-                    <span className="text-[11px] font-bold text-white/40 uppercase tracking-widest">{f}</span>
+                    <span className="text-[11px] font-bold text-white/25 uppercase tracking-widest line-through">{f}</span>
                   </li>
                 ))}
               </ul>
               <button
-                onClick={() => openModal(
-                  { id: "ex5-decompiler", name: "EX5 Decompiler API", type: "RPC", description: "Decompile MT5 Expert Advisors", packages: [] },
-                  { id: "ex5-1call", name: "1 Call", price: "$99", features: ["Single EX5 file", "Full source output", "Email delivery", "72h processing"] }
-                )}
-                className="w-full py-4 bg-white/5 border border-white/10 rounded-xl font-black text-[10px] tracking-widest uppercase hover:bg-white hover:text-black transition-all"
-              >GET ACCESS</button>
+                disabled
+                className="w-full py-4 bg-white/[0.03] border border-white/5 rounded-xl font-black text-[10px] tracking-widest uppercase text-white/20 cursor-not-allowed"
+              >NOT AVAILABLE</button>
             </div>
 
-            {/* 2 Calls */}
-            <div className="relative p-8 rounded-2xl border border-white/5 bg-white/[0.02] hover:border-white/10 transition-all flex flex-col">
-              <div className="text-[10px] font-black tracking-widest text-white/20 uppercase mb-6">2 API CALLS</div>
-              <div className="text-5xl font-black tracking-tighter mb-2">$160</div>
-              <div className="text-[10px] text-white/30 font-bold uppercase tracking-widest mb-8">per bundle</div>
+            {/* $178 — 3 Months, Source Not Available */}
+            <div className="relative p-8 rounded-2xl border border-amber-500/20 bg-amber-500/[0.02] flex flex-col">
+              <div className="flex items-center justify-between mb-6">
+                <div className="text-[10px] font-black tracking-widest text-white/20 uppercase">3 Months</div>
+                <div className="px-2 py-1 bg-amber-600/15 border border-amber-500/30 text-amber-400 text-[9px] font-black tracking-widest uppercase rounded">NOT AVAILABLE</div>
+              </div>
+              <div className="text-5xl font-black tracking-tighter mb-2">$178</div>
+              <div className="text-[10px] text-white/30 font-bold uppercase tracking-widest mb-8">3-month access</div>
               <ul className="space-y-3 flex-grow mb-8">
-                {["Two EX5 files", "Full source output", "Email delivery", "48h processing"].map((f, i) => (
+                {["3-Month License", "Priority email", "48h processing"].map((f, i) => (
                   <li key={i} className="flex items-center gap-3">
                     <div className="w-4 h-4 rounded-full bg-white/5 flex items-center justify-center shrink-0">
                       <svg className="w-2.5 h-2.5 text-white/40" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
@@ -378,27 +382,30 @@ export default function Home() {
                     <span className="text-[11px] font-bold text-white/40 uppercase tracking-widest">{f}</span>
                   </li>
                 ))}
+                <li className="flex items-center gap-3 mt-1">
+                  <div className="w-4 h-4 rounded-full bg-amber-500/10 flex items-center justify-center shrink-0">
+                    <svg className="w-2.5 h-2.5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" /></svg>
+                  </div>
+                  <span className="text-[11px] font-bold text-amber-400/70 uppercase tracking-widest">Source currently not available</span>
+                </li>
               </ul>
               <button
-                onClick={() => openModal(
-                  { id: "ex5-decompiler", name: "EX5 Decompiler API", type: "RPC", description: "Decompile MT5 Expert Advisors", packages: [] },
-                  { id: "ex5-2call", name: "2 Calls", price: "$160", features: ["Two EX5 files", "Full source output", "Email delivery", "48h processing"] }
-                )}
-                className="w-full py-4 bg-white/5 border border-white/10 rounded-xl font-black text-[10px] tracking-widest uppercase hover:bg-white hover:text-black transition-all"
-              >GET ACCESS</button>
+                disabled
+                className="w-full py-4 bg-amber-500/10 border border-amber-500/20 rounded-xl font-black text-[10px] tracking-widest uppercase text-amber-400/50 cursor-not-allowed"
+              >SOURCE NOT AVAILABLE</button>
             </div>
 
-            {/* 5 Calls — Recommended */}
+            {/* $489 — 1 Year, Available */}
             <div className="relative p-8 rounded-2xl border border-blue-500/30 bg-blue-600/5 hover:border-blue-500/50 transition-all flex flex-col overflow-hidden">
               <div className="absolute top-0 right-0 w-40 h-40 bg-blue-500/10 blur-[80px] -z-10" />
               <div className="flex items-center justify-between mb-6">
-                <div className="text-[10px] font-black tracking-widest text-white/20 uppercase">5 API CALLS</div>
-                <div className="px-2 py-1 bg-blue-600 text-white text-[9px] font-black tracking-widest uppercase rounded">RECOMMENDED</div>
+                <div className="text-[10px] font-black tracking-widest text-white/20 uppercase">1 Year</div>
+                <div className="px-2 py-1 bg-blue-600 text-white text-[9px] font-black tracking-widest uppercase rounded">AVAILABLE</div>
               </div>
-              <div className="text-5xl font-black tracking-tighter mb-2">$300</div>
-              <div className="text-[10px] text-white/30 font-bold uppercase tracking-widest mb-8">per bundle</div>
+              <div className="text-5xl font-black tracking-tighter mb-2">$489</div>
+              <div className="text-[10px] text-white/30 font-bold uppercase tracking-widest mb-8">1-year license</div>
               <ul className="space-y-3 flex-grow mb-8">
-                {["Five EX5 files", "Full source output", "Priority email", "24h processing", "Best value per call"].map((f, i) => (
+                {["Full 1-Year Access", "Unlimited EX5 files", "Full source output", "Priority email", "24h processing"].map((f, i) => (
                   <li key={i} className="flex items-center gap-3">
                     <div className="w-4 h-4 rounded-full bg-blue-500/10 flex items-center justify-center shrink-0">
                       <svg className="w-2.5 h-2.5 text-blue-400" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
@@ -410,11 +417,12 @@ export default function Home() {
               <button
                 onClick={() => openModal(
                   { id: "ex5-decompiler", name: "EX5 Decompiler API", type: "RPC", description: "Decompile MT5 Expert Advisors", packages: [] },
-                  { id: "ex5-5call", name: "5 Calls", price: "$300", features: ["Five EX5 files", "Full source output", "Priority email", "24h processing", "Best value per call"] }
+                  { id: "ex5-1year", name: "1 Year", price: "$489", features: ["Full 1-Year Access", "Unlimited EX5 files", "Full source output", "Priority email", "24h processing"] }
                 )}
                 className="w-full py-4 bg-blue-600 text-white rounded-xl font-black text-[10px] tracking-widest uppercase hover:bg-blue-500 transition-all shadow-lg shadow-blue-600/20"
               >GET ACCESS</button>
             </div>
+
           </div>
 
           {/* Notice + Docs Link */}

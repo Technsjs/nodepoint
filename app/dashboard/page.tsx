@@ -327,7 +327,7 @@ export default function DashboardHome() {
                     <div className="p-8 rounded-2xl border border-white/5 bg-white/[0.02]">
                         <div className="text-[10px] font-black tracking-widest text-white/20 uppercase mb-6 italic">Step 2: Control Bot</div>
                         <div className="flex gap-2 p-1 bg-white/5 rounded-lg mb-6">
-                            <button onClick={() => setBotType("Arbitrage")} className={`flex-1 py-2 rounded text-[10px] font-black tracking-widest uppercase transition-all ${botType === 'Arbitrage' ? 'bg-white text-black' : 'text-white/30 hover:text-white'}`}>Arbitrage</button>
+                            <button onClick={() => setBotType("Arbitrage")} className={`flex-1 py-2 rounded text-[10px] font-black tracking-widest uppercase transition-all ${botType === 'Arbitrage' ? 'bg-white text-black' : 'text-white/30 hover:text-white'}`}>Arbitrage Proxy</button>
                             <button
                                 disabled
                                 className="flex-1 py-2 rounded text-[10px] font-black tracking-widest uppercase transition-all text-white/10 cursor-not-allowed flex items-center justify-center gap-2"

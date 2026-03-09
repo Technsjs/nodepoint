@@ -11,7 +11,7 @@
    - KYC Compliance API
 
 2. **Trading Bots** (2 services):
-   - Arbitrage Bot ($850)
+   - Arbitrage Bot Proxy ($180)
    - Forex Bot ($950)
 
 3. **Coming Soon**:
@@ -36,7 +36,7 @@ Dashboard Home
 **Purpose**: Control panel for all trading bots
 
 **Features**:
-- **Arbitrage Bot Control**:
+- **Arbitrage Bot Proxy Control**:
   - Start/Stop bot
   - Configure DEX pairs (Uniswap, Sushiswap, etc.)
   - Set minimum profit threshold (e.g., 0.5%)

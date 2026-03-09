@@ -113,11 +113,11 @@ const SERVICES: Service[] = [
   },
   {
     id: "bot-arb",
-    name: "Arbitrage Bot",
+    name: "Arbitrage Bot Proxy",
     type: "BOT",
     description: "Automated cross-chain arbitrage execution system.",
     packages: [
-      { id: "arb-pro", name: "Pro Suite", price: "$850", recommended: true, features: ["Multi-chain", "Flashloan Ready", "Auto-execution", "Profit Tracking", "Lifetime Updates"] },
+      { id: "arb-pro", name: "Pro Suite", price: "$180", recommended: true, features: ["Multi-chain", "Flashloan Ready", "Auto-execution", "Profit Tracking", "Lifetime Updates"] },
     ],
   },
   {

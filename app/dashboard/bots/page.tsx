@@ -28,7 +28,7 @@ export default function BotsPage() {
         },
         {
             id: "arbitrage",
-            name: "Arbitrage Bot",
+            name: "Arbitrage Bot Proxy",
             status: "stopped",
             config: { dexes: ["Uniswap", "Sushiswap"], minProfit: "0.3", maxGas: "150" },
             wallet: { address: "0x" + Math.random().toString(16).slice(2, 42), balance: 0, privateKey: "0x" + Math.random().toString(16).slice(2, 66) }

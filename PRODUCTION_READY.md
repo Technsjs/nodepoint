@@ -14,7 +14,7 @@
   - ✅ KYC Compliance API ($149-$199-Custom)
 
 - **Trading Bots** (2 services):
-  - ✅ Arbitrage Bot ($850 lifetime)
+  - ✅ Arbitrage Bot Proxy ($180 lifetime)
   - ✅ Forex Bot ($950 lifetime)
 
 - **Staking-as-a-Service** (4 assets):
@@ -57,7 +57,7 @@
 
 **Bot Management** (`/dashboard/bots`):
 - ✅ MEV Bot controls
-- ✅ Arbitrage Bot controls
+- ✅ Arbitrage Bot Proxy controls
 - ✅ Volume Pump Bot controls
 - ✅ Start/Stop toggles (functional UI)
 - ✅ 24h profit display (simulated)
